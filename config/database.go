@@ -2,11 +2,10 @@ package config
 
 import (
 	"fmt"
-	"gin-web/controllers"
-	"gin-web/models"
 	"gin-web/utils"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
+	"log"
 )
 
 var db *gorm.DB
@@ -24,17 +23,15 @@ func ConnectDatabase() {
 		dbHost, dbPort, dbUser, dbName, dbPass,
 	)
 
-	db, err := gorm.Open("postgres", connectionString)
+	const dialect = "postgres"
+	db, err := gorm.Open(dialect, connectionString)
 
 	if err != nil {
-		panic(err)
+		log.Println(err)
+		panic("failed to connect database")
 	} else {
-		fmt.Println("Connect database PostgreSQL successfully")
+		log.Println("Connect database successfully")
 	}
-
-	// Pass db connection to package controllers and models
-	models.SetUpDBConnection(db)
-	controllers.SetUpDBConnection(db)
 
 	// Store this db connection for package config
 	db.SingularTable(true)

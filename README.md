@@ -44,11 +44,20 @@ names := c.PostFormMap("names")
 
 [GORM Guides | GORM - The fantastic ORM library for Golang, aims to be developer friendly.](http://gorm.io/docs/)
 
-
 ## config
 
 ### env file
 
 ```bash
 go get -u github.com/joho/godotenv
+
+# for production
+# should pre-prepare .env file and then map .env file
+```
+
+### database
+
+```go
+db, err := gorm.Open("postgres", "host=localhost port=5432 user=postgres dbname=mydb password=postgres sslmode=disable")
+defer db.Close()
 ```

@@ -11,11 +11,12 @@ import (
 var router = gin.Default()
 
 func configRouter() {
-	routes.SetUp(router)
+	// internal router
+	routes.SetUpRouter(router)
 
 	//	api router
 	apiRouter := router.Group("/api")
-	api.SetUp(apiRouter)
+	api.SetUpRouter(apiRouter)
 }
 
 func main() {
